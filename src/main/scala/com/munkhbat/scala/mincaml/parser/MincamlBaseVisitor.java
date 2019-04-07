@@ -45,14 +45,14 @@ public class MincamlBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIntExp(MincamlParser.IntExpContext ctx) { return visitChildren(ctx); }
+	@Override public T visitFloatExp(MincamlParser.FloatExpContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFloatExp(MincamlParser.FloatExpContext ctx) { return visitChildren(ctx); }
+	@Override public T visitIntExp(MincamlParser.IntExpContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

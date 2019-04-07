@@ -64,18 +64,6 @@ public class MincamlBaseListener implements MincamlListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIntExp(MincamlParser.IntExpContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitIntExp(MincamlParser.IntExpContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterFloatExp(MincamlParser.FloatExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -83,6 +71,18 @@ public class MincamlBaseListener implements MincamlListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFloatExp(MincamlParser.FloatExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIntExp(MincamlParser.IntExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIntExp(MincamlParser.IntExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

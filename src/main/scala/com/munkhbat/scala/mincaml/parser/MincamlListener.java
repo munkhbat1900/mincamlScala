@@ -56,18 +56,6 @@ public interface MincamlListener extends ParseTreeListener {
 	 */
 	void exitIdentExp(MincamlParser.IdentExpContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code intExp}
-	 * labeled alternative in {@link MincamlParser#simple_exp}.
-	 * @param ctx the parse tree
-	 */
-	void enterIntExp(MincamlParser.IntExpContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code intExp}
-	 * labeled alternative in {@link MincamlParser#simple_exp}.
-	 * @param ctx the parse tree
-	 */
-	void exitIntExp(MincamlParser.IntExpContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code floatExp}
 	 * labeled alternative in {@link MincamlParser#simple_exp}.
 	 * @param ctx the parse tree
@@ -79,6 +67,18 @@ public interface MincamlListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFloatExp(MincamlParser.FloatExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code intExp}
+	 * labeled alternative in {@link MincamlParser#simple_exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterIntExp(MincamlParser.IntExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code intExp}
+	 * labeled alternative in {@link MincamlParser#simple_exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitIntExp(MincamlParser.IntExpContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code getExp}
 	 * labeled alternative in {@link MincamlParser#simple_exp}.

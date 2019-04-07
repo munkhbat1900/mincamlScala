@@ -72,9 +72,13 @@ class Visitor extends MincamlBaseVisitor[Ast.Exp] {
     MPut(arrExp, indexExp, valToPut)
   }
 
-  override def visitNotExp(ctx: MincamlParser.NotExpContext): Ast.Exp = visitChildren(ctx)
+  override def visitNotExp(ctx: MincamlParser.NotExpContext): Ast.Exp = {
+    MNot(visit(ctx.exp()))
+  }
 
-  override def visitArrayCreateExp(ctx: MincamlParser.ArrayCreateExpContext): Ast.Exp = visitChildren(ctx)
+  override def visitArrayCreateExp(ctx: MincamlParser.ArrayCreateExpContext): Ast.Exp = {
+    MArray()
+  }
 
   override def visitLetExp(ctx: MincamlParser.LetExpContext): Ast.Exp = visitChildren(ctx)
 
@@ -82,7 +86,9 @@ class Visitor extends MincamlBaseVisitor[Ast.Exp] {
 
   override def visitIfExp(ctx: MincamlParser.IfExpContext): Ast.Exp = visitChildren(ctx)
 
-  override def visitNegExp(ctx: MincamlParser.NegExpContext): Ast.Exp = visitChildren(ctx)
+  override def visitNegExp(ctx: MincamlParser.NegExpContext): Ast.Exp = {
+    MNeg(visit(ctx.exp()))
+  }
 
   override def visitLetRecExp(ctx: MincamlParser.LetRecExpContext): Ast.Exp = visitChildren(ctx)
 

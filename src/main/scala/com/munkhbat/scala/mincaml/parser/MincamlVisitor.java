@@ -39,19 +39,19 @@ public interface MincamlVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIdentExp(MincamlParser.IdentExpContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code intExp}
-	 * labeled alternative in {@link MincamlParser#simple_exp}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitIntExp(MincamlParser.IntExpContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code floatExp}
 	 * labeled alternative in {@link MincamlParser#simple_exp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitFloatExp(MincamlParser.FloatExpContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code intExp}
+	 * labeled alternative in {@link MincamlParser#simple_exp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIntExp(MincamlParser.IntExpContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code getExp}
 	 * labeled alternative in {@link MincamlParser#simple_exp}.

@@ -4,8 +4,8 @@ simple_exp:
       '(' exp ')'  #parenExp
     | '(' ')'      #emptyParenExp
     | BOOL         #boolExp
-    | INT          #intExp
     | FLOAT        #floatExp
+    | INT          #intExp
     | IDENT        #identExp
     | simple_exp '.' '(' exp ')'   #getExp
 ;
@@ -60,8 +60,8 @@ LET: 'let';
 REC: 'rec';
 IN: 'in';
 BOOL: 'true' 'false';
-INT: [1-9] ([0-9])*;
-FLOAT: ([0-9])+ ('.' ([0-9])*)? ([e, E] (['+', '-'])? ([0-9])+)?;
+FLOAT: [0-9]+'.'[0-9]*;
+INT: [0-9]+;
 COMMENT: '(*' .*? '*)' -> skip;
 IDENT: [a-zA-Z0-9_]+;
 WS: [ \t\r\n\u000C]+ -> skip;

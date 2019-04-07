@@ -20,7 +20,7 @@ public class MincamlParser extends Parser {
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
 		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
 		T__17=18, T__18=19, ARRAY_CREATE=20, IF=21, THEN=22, ELSE=23, LET=24, 
-		REC=25, IN=26, BOOL=27, INT=28, FLOAT=29, COMMENT=30, IDENT=31, WS=32;
+		REC=25, IN=26, BOOL=27, FLOAT=28, INT=29, COMMENT=30, IDENT=31, WS=32;
 	public static final int
 		RULE_simple_exp = 0, RULE_exp = 1, RULE_fundef = 2, RULE_formal_args = 3, 
 		RULE_actual_args = 4, RULE_elems = 5, RULE_pat = 6;
@@ -44,7 +44,7 @@ public class MincamlParser extends Parser {
 		return new String[] {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			null, null, null, null, null, null, null, null, "ARRAY_CREATE", "IF", 
-			"THEN", "ELSE", "LET", "REC", "IN", "BOOL", "INT", "FLOAT", "COMMENT", 
+			"THEN", "ELSE", "LET", "REC", "IN", "BOOL", "FLOAT", "INT", "COMMENT", 
 			"IDENT", "WS"
 		};
 	}
@@ -179,23 +179,6 @@ public class MincamlParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
-	public static class IntExpContext extends Simple_expContext {
-		public TerminalNode INT() { return getToken(MincamlParser.INT, 0); }
-		public IntExpContext(Simple_expContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MincamlListener ) ((MincamlListener)listener).enterIntExp(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MincamlListener ) ((MincamlListener)listener).exitIntExp(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MincamlVisitor ) return ((MincamlVisitor<? extends T>)visitor).visitIntExp(this);
-			else return visitor.visitChildren(this);
-		}
-	}
 	public static class FloatExpContext extends Simple_expContext {
 		public TerminalNode FLOAT() { return getToken(MincamlParser.FLOAT, 0); }
 		public FloatExpContext(Simple_expContext ctx) { copyFrom(ctx); }
@@ -210,6 +193,23 @@ public class MincamlParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MincamlVisitor ) return ((MincamlVisitor<? extends T>)visitor).visitFloatExp(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class IntExpContext extends Simple_expContext {
+		public TerminalNode INT() { return getToken(MincamlParser.INT, 0); }
+		public IntExpContext(Simple_expContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MincamlListener ) ((MincamlListener)listener).enterIntExp(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MincamlListener ) ((MincamlListener)listener).exitIntExp(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MincamlVisitor ) return ((MincamlVisitor<? extends T>)visitor).visitIntExp(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -290,20 +290,20 @@ public class MincamlParser extends Parser {
 				break;
 			case 4:
 				{
-				_localctx = new IntExpContext(_localctx);
+				_localctx = new FloatExpContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(22);
-				match(INT);
+				match(FLOAT);
 				}
 				break;
 			case 5:
 				{
-				_localctx = new FloatExpContext(_localctx);
+				_localctx = new IntExpContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(23);
-				match(FLOAT);
+				match(INT);
 				}
 				break;
 			case 6:
