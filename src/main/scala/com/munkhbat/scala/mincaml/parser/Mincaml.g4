@@ -13,10 +13,10 @@ exp:
       simple_exp                                                              #simpleExp
     | 'not' exp                                                               #notExp
     | '-' exp                                                                 #negExp
+    | exp actual_args                                                         #applyExp
     | left = exp op = ('*.' | '/.') right = exp                               #multiplyDivideExp
     | left = exp op = ('+' | '-' | '+.' | '-.') right = exp                   #plusMinusExp
     | left = exp op = ('=' | '<>' | '<' | '>' | '<=' | '>=') right = exp      #logicalExp
-    | exp actual_args                                                         #applyExp
     | IF condition = exp THEN thenExp = exp ELSE elseExp = exp                #ifExp
     | '-.' exp                                                                #fNegExp
     | LET IDENT '=' exp IN exp                                                #letExp

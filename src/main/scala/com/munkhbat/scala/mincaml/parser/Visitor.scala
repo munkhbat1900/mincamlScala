@@ -3,10 +3,13 @@ package com.munkhbat.scala.mincaml.parser
 import com.munkhbat.scala.mincaml.ast.Ast
 import com.munkhbat.scala.mincaml.ast.Ast._
 import com.munkhbat.scala.mincaml.`type`.Type
+import com.munkhbat.scala.mincaml.tools.Id
 import scala.collection.JavaConversions._
 
 class Visitor extends MincamlBaseVisitor[Ast.Exp] {
-  override def visitEmptyParenExp(ctx: MincamlParser.EmptyParenExpContext): Ast.Exp = visitChildren(ctx)
+  override def visitEmptyParenExp(ctx: MincamlParser.EmptyParenExpContext): Ast.Exp = {
+    MUnit()
+  }
 
   /**
     * {@inheritDoc }
@@ -142,7 +145,13 @@ class Visitor extends MincamlBaseVisitor[Ast.Exp] {
     }
   }
 
-  override def visitSeqExp(ctx: MincamlParser.SeqExpContext): Ast.Exp = visitChildren(ctx)
+  override def visitSeqExp(ctx: MincamlParser.SeqExpContext): Ast.Exp = {
+    val e1 = visit(ctx.exp(0))
+    val e2 = visit(ctx.exp(1))
+    Id.gentmp(Type.Unit())
+
+    MLet(("seq", Type.Unit()), e1, e2)
+  }
 
   override def visitFundef(ctx: MincamlParser.FundefContext): Ast.Exp = {
     val funName = ctx.IDENT().getText

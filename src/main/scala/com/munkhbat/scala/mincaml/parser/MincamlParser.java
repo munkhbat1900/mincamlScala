@@ -936,7 +936,7 @@ public class MincamlParser extends Parser {
 						((MultiplyDivideExpContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_exp);
 						setState(90);
-						if (!(precpred(_ctx, 13))) throw new FailedPredicateException(this, "precpred(_ctx, 13)");
+						if (!(precpred(_ctx, 12))) throw new FailedPredicateException(this, "precpred(_ctx, 12)");
 						setState(91);
 						((MultiplyDivideExpContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
@@ -949,7 +949,7 @@ public class MincamlParser extends Parser {
 							consume();
 						}
 						setState(92);
-						((MultiplyDivideExpContext)_localctx).right = exp(14);
+						((MultiplyDivideExpContext)_localctx).right = exp(13);
 						}
 						break;
 					case 2:
@@ -958,7 +958,7 @@ public class MincamlParser extends Parser {
 						((PlusMinusExpContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_exp);
 						setState(93);
-						if (!(precpred(_ctx, 12))) throw new FailedPredicateException(this, "precpred(_ctx, 12)");
+						if (!(precpred(_ctx, 11))) throw new FailedPredicateException(this, "precpred(_ctx, 11)");
 						setState(94);
 						((PlusMinusExpContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
@@ -971,7 +971,7 @@ public class MincamlParser extends Parser {
 							consume();
 						}
 						setState(95);
-						((PlusMinusExpContext)_localctx).right = exp(13);
+						((PlusMinusExpContext)_localctx).right = exp(12);
 						}
 						break;
 					case 3:
@@ -980,7 +980,7 @@ public class MincamlParser extends Parser {
 						((LogicalExpContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_exp);
 						setState(96);
-						if (!(precpred(_ctx, 11))) throw new FailedPredicateException(this, "precpred(_ctx, 11)");
+						if (!(precpred(_ctx, 10))) throw new FailedPredicateException(this, "precpred(_ctx, 10)");
 						setState(97);
 						((LogicalExpContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
@@ -993,7 +993,7 @@ public class MincamlParser extends Parser {
 							consume();
 						}
 						setState(98);
-						((LogicalExpContext)_localctx).right = exp(12);
+						((LogicalExpContext)_localctx).right = exp(11);
 						}
 						break;
 					case 4:
@@ -1013,7 +1013,7 @@ public class MincamlParser extends Parser {
 						_localctx = new ApplyExpContext(new ExpContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_exp);
 						setState(102);
-						if (!(precpred(_ctx, 10))) throw new FailedPredicateException(this, "precpred(_ctx, 10)");
+						if (!(precpred(_ctx, 13))) throw new FailedPredicateException(this, "precpred(_ctx, 13)");
 						setState(103);
 						actual_args();
 						}
@@ -1386,15 +1386,15 @@ public class MincamlParser extends Parser {
 	private boolean exp_sempred(ExpContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 1:
-			return precpred(_ctx, 13);
-		case 2:
 			return precpred(_ctx, 12);
-		case 3:
+		case 2:
 			return precpred(_ctx, 11);
+		case 3:
+			return precpred(_ctx, 10);
 		case 4:
 			return precpred(_ctx, 2);
 		case 5:
-			return precpred(_ctx, 10);
+			return precpred(_ctx, 13);
 		case 6:
 			return precpred(_ctx, 5);
 		}
@@ -1429,19 +1429,18 @@ public class MincamlParser extends Parser {
 		"\2PQ\7\3\2\2QR\5\4\3\2RS\7\4\2\2ST\7\23\2\2TU\5\4\3\5U[\3\2\2\2VW\7\26"+
 		"\2\2WX\5\2\2\2XY\5\2\2\2Y[\3\2\2\2Z(\3\2\2\2Z*\3\2\2\2Z,\3\2\2\2Z.\3\2"+
 		"\2\2Z\65\3\2\2\2Z\67\3\2\2\2Z>\3\2\2\2ZD\3\2\2\2ZN\3\2\2\2ZV\3\2\2\2["+
-		"n\3\2\2\2\\]\f\17\2\2]^\t\2\2\2^m\5\4\3\20_`\f\16\2\2`a\t\3\2\2am\5\4"+
-		"\3\17bc\f\r\2\2cd\t\4\2\2dm\5\4\3\16ef\f\4\2\2fg\7\24\2\2gm\5\4\3\5hi"+
-		"\f\f\2\2im\5\n\6\2jk\f\7\2\2km\5\f\7\2l\\\3\2\2\2l_\3\2\2\2lb\3\2\2\2"+
-		"le\3\2\2\2lh\3\2\2\2lj\3\2\2\2mp\3\2\2\2nl\3\2\2\2no\3\2\2\2o\5\3\2\2"+
-		"\2pn\3\2\2\2qx\3\2\2\2rs\7!\2\2st\5\b\5\2tu\7\r\2\2uv\5\4\3\2vx\3\2\2"+
-		"\2wq\3\2\2\2wr\3\2\2\2x\7\3\2\2\2y{\7!\2\2zy\3\2\2\2{|\3\2\2\2|z\3\2\2"+
-		"\2|}\3\2\2\2}\t\3\2\2\2~\u0080\5\2\2\2\177~\3\2\2\2\u0080\u0081\3\2\2"+
-		"\2\u0081\177\3\2\2\2\u0081\u0082\3\2\2\2\u0082\13\3\2\2\2\u0083\u0084"+
-		"\7\25\2\2\u0084\u0086\5\4\3\2\u0085\u0083\3\2\2\2\u0086\u0087\3\2\2\2"+
-		"\u0087\u0085\3\2\2\2\u0087\u0088\3\2\2\2\u0088\r\3\2\2\2\u0089\u008a\7"+
-		"\25\2\2\u008a\u008c\7!\2\2\u008b\u0089\3\2\2\2\u008c\u008d\3\2\2\2\u008d"+
-		"\u008b\3\2\2\2\u008d\u008e\3\2\2\2\u008e\17\3\2\2\2\f\33%Zlnw|\u0081\u0087"+
-		"\u008d";
+		"n\3\2\2\2\\]\f\16\2\2]^\t\2\2\2^m\5\4\3\17_`\f\r\2\2`a\t\3\2\2am\5\4\3"+
+		"\16bc\f\f\2\2cd\t\4\2\2dm\5\4\3\ref\f\4\2\2fg\7\24\2\2gm\5\4\3\5hi\f\17"+
+		"\2\2im\5\n\6\2jk\f\7\2\2km\5\f\7\2l\\\3\2\2\2l_\3\2\2\2lb\3\2\2\2le\3"+
+		"\2\2\2lh\3\2\2\2lj\3\2\2\2mp\3\2\2\2nl\3\2\2\2no\3\2\2\2o\5\3\2\2\2pn"+
+		"\3\2\2\2qx\3\2\2\2rs\7!\2\2st\5\b\5\2tu\7\r\2\2uv\5\4\3\2vx\3\2\2\2wq"+
+		"\3\2\2\2wr\3\2\2\2x\7\3\2\2\2y{\7!\2\2zy\3\2\2\2{|\3\2\2\2|z\3\2\2\2|"+
+		"}\3\2\2\2}\t\3\2\2\2~\u0080\5\2\2\2\177~\3\2\2\2\u0080\u0081\3\2\2\2\u0081"+
+		"\177\3\2\2\2\u0081\u0082\3\2\2\2\u0082\13\3\2\2\2\u0083\u0084\7\25\2\2"+
+		"\u0084\u0086\5\4\3\2\u0085\u0083\3\2\2\2\u0086\u0087\3\2\2\2\u0087\u0085"+
+		"\3\2\2\2\u0087\u0088\3\2\2\2\u0088\r\3\2\2\2\u0089\u008a\7\25\2\2\u008a"+
+		"\u008c\7!\2\2\u008b\u0089\3\2\2\2\u008c\u008d\3\2\2\2\u008d\u008b\3\2"+
+		"\2\2\u008d\u008e\3\2\2\2\u008e\17\3\2\2\2\f\33%Zlnw|\u0081\u0087\u008d";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
