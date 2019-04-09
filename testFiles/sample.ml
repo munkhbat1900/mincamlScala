@@ -1,1 +1,1 @@
-not 3.6
+let (x, y, z) = v in x

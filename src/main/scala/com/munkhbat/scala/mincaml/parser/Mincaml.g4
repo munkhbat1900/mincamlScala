@@ -37,9 +37,7 @@ formal_args:
     | IDENT
 ;
 
-actual_args:
-      actual_args simple_exp
-    | simple_exp
+actual_args: simple_exp+
     ;
 
 elems:
@@ -52,7 +50,7 @@ pat:
     | IDENT ',' IDENT
 ;
 
-ARRAY_CREATE: 'Array.create';
+ARRAY_CREATE: 'Array.make';
 IF: 'if';
 THEN: 'then';
 ELSE: 'else';

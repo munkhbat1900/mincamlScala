@@ -26,7 +26,7 @@ object Ast {
   case class MLetRec(e1: MFunDef, e2: Exp) extends Exp
   case class MApp(e1: Exp, e2: List[Exp]) extends Exp
   case class MTuple(e: List[Exp]) extends Exp
-  case class MLetTuple(e1: List[(Id.T, Type.T)], e2:Exp, e3: Exp)
+  case class MLetTuple(e1: List[(Id.T, Type.T)], e2:Exp, e3: Exp) extends Exp
   case class MArray(e1: Exp, e2: Exp) extends Exp
   case class MGet(e1: Exp, e2: Exp) extends Exp
   case class MPut(e1: Exp, e2: Exp, e3: Exp) extends Exp
