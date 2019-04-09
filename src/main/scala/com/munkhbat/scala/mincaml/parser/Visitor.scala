@@ -15,7 +15,7 @@ class Visitor extends MincamlBaseVisitor[Ast.Exp] {
     * {@link #visitChildren} on {@code ctx}.</p>
     */
   override def visitParenExp(ctx: MincamlParser.ParenExpContext): Ast.Exp = {
-    visitChildren(ctx)
+    visit(ctx.exp())
   }
 
   override def visitBoolExp(ctx: MincamlParser.BoolExpContext): Ast.Exp = {
@@ -51,11 +51,11 @@ class Visitor extends MincamlBaseVisitor[Ast.Exp] {
   }
 
   override def visitLetTupleExp(ctx: MincamlParser.LetTupleExpContext): Ast.Exp = {
-    val tuple = visit(ctx.pat())
     val e = visit(ctx.exp(0))
     val inExp = visit(ctx.exp(1))
+    val firstIdent = ctx.IDENT().getText
     val identList = ctx.pat().IDENT()
-    val identsWithType = identList.map(ident => (ident.getText, Type.gentyp())).toList
+    val identsWithType = (firstIdent, Type.gentyp()) :: identList.map(ident => (ident.getText, Type.gentyp())).toList
     MLetTuple(identsWithType, e, inExp)
   }
 
@@ -84,10 +84,15 @@ class Visitor extends MincamlBaseVisitor[Ast.Exp] {
     MArray(e1, e2)
   }
 
-  override def visitLetExp(ctx: MincamlParser.LetExpContext): Ast.Exp = visitChildren(ctx)
+  override def visitLetExp(ctx: MincamlParser.LetExpContext): Ast.Exp = {
+    val ident = ctx.IDENT().getText
+    MLet((ident, Type.gentyp()), visit(ctx.exp(0)), visit(ctx.exp(1)))
+  }
 
   override def visitTupleExp(ctx: MincamlParser.TupleExpContext): Ast.Exp = {
-    visitChildren(ctx)
+    val exps = ctx.elems().exp()
+    val expList = visit(ctx.exp()) :: exps.map(e => visit(e)).toList
+    MTuple(expList)
   }
 
   override def visitIfExp(ctx: MincamlParser.IfExpContext): Ast.Exp = {
@@ -101,7 +106,9 @@ class Visitor extends MincamlBaseVisitor[Ast.Exp] {
     MNeg(visit(ctx.exp()))
   }
 
-  override def visitLetRecExp(ctx: MincamlParser.LetRecExpContext): Ast.Exp = visitChildren(ctx)
+  override def visitLetRecExp(ctx: MincamlParser.LetRecExpContext): Ast.Exp = {
+    MLetRec(visitFundef(ctx.fundef()), visit(ctx.exp()))
+  }
 
   override def visitMultiplyDivideExp(ctx: MincamlParser.MultiplyDivideExpContext): Ast.Exp = {
     val left = visit(ctx.left)
@@ -137,13 +144,10 @@ class Visitor extends MincamlBaseVisitor[Ast.Exp] {
 
   override def visitSeqExp(ctx: MincamlParser.SeqExpContext): Ast.Exp = visitChildren(ctx)
 
-  override def visitFundef(ctx: MincamlParser.FundefContext): Ast.Exp = visitChildren(ctx)
-
-  override def visitFormal_args(ctx: MincamlParser.Formal_argsContext): Ast.Exp = visitChildren(ctx)
-
-  override def visitActual_args(ctx: MincamlParser.Actual_argsContext): Ast.Exp = visitChildren(ctx)
-
-  override def visitElems(ctx: MincamlParser.ElemsContext): Ast.Exp = visitChildren(ctx)
-
-  override def visitPat(ctx: MincamlParser.PatContext): Ast.Exp = visitChildren(ctx)
+  override def visitFundef(ctx: MincamlParser.FundefContext): Ast.Exp = {
+    val funName = ctx.IDENT().getText
+    val args = ctx.formal_args().IDENT().map(i => (i.getText, Type.gentyp())).toList
+    val body = visit(ctx.exp())
+    MFunDef((funName, Type.gentyp()), args, body)
+  }
 }

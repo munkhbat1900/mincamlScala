@@ -23,12 +23,13 @@ object Ast {
   case class MIf(e1: Exp, e2: Exp, e3: Exp) extends Exp
   case class MLet(e1: (Id.T, Type.T), e2: Exp, e3: Exp) extends Exp
   case class MVar(e: String) extends Exp
-  case class MLetRec(e1: MFunDef, e2: Exp) extends Exp
+  // e1: MFunDef
+  case class MLetRec(e1: Exp, e2: Exp) extends Exp
   case class MApp(e1: Exp, e2: List[Exp]) extends Exp
   case class MTuple(e: List[Exp]) extends Exp
   case class MLetTuple(e1: List[(Id.T, Type.T)], e2:Exp, e3: Exp) extends Exp
   case class MArray(e1: Exp, e2: Exp) extends Exp
   case class MGet(e1: Exp, e2: Exp) extends Exp
   case class MPut(e1: Exp, e2: Exp, e3: Exp) extends Exp
-  case class MFunDef(name: (Id.T, Type.T), args : List[(Id.T, Type.T)], body : Exp)
+  case class MFunDef(name: (Id.T, Type.T), args : List[(Id.T, Type.T)], body : Exp) extends Exp
 }

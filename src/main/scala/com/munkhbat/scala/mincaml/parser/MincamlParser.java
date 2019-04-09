@@ -35,7 +35,7 @@ public class MincamlParser extends Parser {
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'('", "')'", "'.'", "'not'", "'-'", "'*.'", "'/.'", "'+'", "'+.'", 
-			"'-.'", "'='", "'<>'", "'<'", "'>'", "'<='", "'>='", "','", "'<-'", "';'", 
+			"'-.'", "'='", "'<>'", "'<'", "'>'", "'<='", "'>='", "'<-'", "';'", "','", 
 			"'Array.make'", "'if'", "'then'", "'else'", "'let'", "'rec'", "'in'"
 		};
 	}
@@ -396,6 +396,7 @@ public class MincamlParser extends Parser {
 	}
 	public static class LetTupleExpContext extends ExpContext {
 		public TerminalNode LET() { return getToken(MincamlParser.LET, 0); }
+		public TerminalNode IDENT() { return getToken(MincamlParser.IDENT, 0); }
 		public PatContext pat() {
 			return getRuleContext(PatContext.class,0);
 		}
@@ -552,11 +553,8 @@ public class MincamlParser extends Parser {
 		}
 	}
 	public static class TupleExpContext extends ExpContext {
-		public List<ExpContext> exp() {
-			return getRuleContexts(ExpContext.class);
-		}
-		public ExpContext exp(int i) {
-			return getRuleContext(ExpContext.class,i);
+		public ExpContext exp() {
+			return getRuleContext(ExpContext.class,0);
 		}
 		public ElemsContext elems() {
 			return getRuleContext(ElemsContext.class,0);
@@ -759,7 +757,7 @@ public class MincamlParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(87);
+			setState(88);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
 			case 1:
@@ -870,16 +868,18 @@ public class MincamlParser extends Parser {
 				setState(67);
 				match(T__0);
 				setState(68);
-				pat(0);
+				match(IDENT);
 				setState(69);
-				match(T__1);
+				pat();
 				setState(70);
-				match(T__10);
+				match(T__1);
 				setState(71);
-				exp(0);
+				match(T__10);
 				setState(72);
-				match(IN);
+				exp(0);
 				setState(73);
+				match(IN);
+				setState(74);
 				exp(4);
 				}
 				break;
@@ -888,19 +888,19 @@ public class MincamlParser extends Parser {
 				_localctx = new PutExpContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(75);
-				simple_exp(0);
 				setState(76);
-				match(T__2);
+				simple_exp(0);
 				setState(77);
-				match(T__0);
+				match(T__2);
 				setState(78);
-				exp(0);
+				match(T__0);
 				setState(79);
-				match(T__1);
+				exp(0);
 				setState(80);
-				match(T__17);
+				match(T__1);
 				setState(81);
+				match(T__16);
+				setState(82);
 				exp(3);
 				}
 				break;
@@ -909,17 +909,17 @@ public class MincamlParser extends Parser {
 				_localctx = new ArrayCreateExpContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(83);
-				match(ARRAY_CREATE);
 				setState(84);
-				simple_exp(0);
+				match(ARRAY_CREATE);
 				setState(85);
+				simple_exp(0);
+				setState(86);
 				simple_exp(0);
 				}
 				break;
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(110);
+			setState(108);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,4,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -927,7 +927,7 @@ public class MincamlParser extends Parser {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(108);
+					setState(106);
 					_errHandler.sync(this);
 					switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 					case 1:
@@ -935,9 +935,9 @@ public class MincamlParser extends Parser {
 						_localctx = new MultiplyDivideExpContext(new ExpContext(_parentctx, _parentState));
 						((MultiplyDivideExpContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_exp);
-						setState(89);
-						if (!(precpred(_ctx, 13))) throw new FailedPredicateException(this, "precpred(_ctx, 13)");
 						setState(90);
+						if (!(precpred(_ctx, 13))) throw new FailedPredicateException(this, "precpred(_ctx, 13)");
+						setState(91);
 						((MultiplyDivideExpContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==T__5 || _la==T__6) ) {
@@ -948,7 +948,7 @@ public class MincamlParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(91);
+						setState(92);
 						((MultiplyDivideExpContext)_localctx).right = exp(14);
 						}
 						break;
@@ -957,9 +957,9 @@ public class MincamlParser extends Parser {
 						_localctx = new PlusMinusExpContext(new ExpContext(_parentctx, _parentState));
 						((PlusMinusExpContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_exp);
-						setState(92);
-						if (!(precpred(_ctx, 12))) throw new FailedPredicateException(this, "precpred(_ctx, 12)");
 						setState(93);
+						if (!(precpred(_ctx, 12))) throw new FailedPredicateException(this, "precpred(_ctx, 12)");
+						setState(94);
 						((PlusMinusExpContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__7) | (1L << T__8) | (1L << T__9))) != 0)) ) {
@@ -970,7 +970,7 @@ public class MincamlParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(94);
+						setState(95);
 						((PlusMinusExpContext)_localctx).right = exp(13);
 						}
 						break;
@@ -979,9 +979,9 @@ public class MincamlParser extends Parser {
 						_localctx = new LogicalExpContext(new ExpContext(_parentctx, _parentState));
 						((LogicalExpContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_exp);
-						setState(95);
-						if (!(precpred(_ctx, 11))) throw new FailedPredicateException(this, "precpred(_ctx, 11)");
 						setState(96);
+						if (!(precpred(_ctx, 11))) throw new FailedPredicateException(this, "precpred(_ctx, 11)");
+						setState(97);
 						((LogicalExpContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << T__13) | (1L << T__14) | (1L << T__15))) != 0)) ) {
@@ -992,7 +992,7 @@ public class MincamlParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(97);
+						setState(98);
 						((LogicalExpContext)_localctx).right = exp(12);
 						}
 						break;
@@ -1000,11 +1000,11 @@ public class MincamlParser extends Parser {
 						{
 						_localctx = new SeqExpContext(new ExpContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_exp);
-						setState(98);
-						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
 						setState(99);
-						match(T__18);
+						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
 						setState(100);
+						match(T__17);
+						setState(101);
 						exp(3);
 						}
 						break;
@@ -1012,9 +1012,9 @@ public class MincamlParser extends Parser {
 						{
 						_localctx = new ApplyExpContext(new ExpContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_exp);
-						setState(101);
-						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
 						setState(102);
+						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
+						setState(103);
 						actual_args();
 						}
 						break;
@@ -1022,20 +1022,16 @@ public class MincamlParser extends Parser {
 						{
 						_localctx = new TupleExpContext(new ExpContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_exp);
-						setState(103);
-						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
 						setState(104);
-						match(T__16);
+						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
 						setState(105);
-						exp(0);
-						setState(106);
 						elems();
 						}
 						break;
 					}
 					} 
 				}
-				setState(112);
+				setState(110);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,4,_ctx);
 			}
@@ -1083,7 +1079,7 @@ public class MincamlParser extends Parser {
 		FundefContext _localctx = new FundefContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_fundef);
 		try {
-			setState(119);
+			setState(117);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case IN:
@@ -1094,13 +1090,13 @@ public class MincamlParser extends Parser {
 			case IDENT:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(114);
+				setState(112);
 				match(IDENT);
-				setState(115);
+				setState(113);
 				formal_args();
-				setState(116);
+				setState(114);
 				match(T__10);
-				setState(117);
+				setState(115);
 				exp(0);
 				}
 				break;
@@ -1120,9 +1116,9 @@ public class MincamlParser extends Parser {
 	}
 
 	public static class Formal_argsContext extends ParserRuleContext {
-		public TerminalNode IDENT() { return getToken(MincamlParser.IDENT, 0); }
-		public Formal_argsContext formal_args() {
-			return getRuleContext(Formal_argsContext.class,0);
+		public List<TerminalNode> IDENT() { return getTokens(MincamlParser.IDENT); }
+		public TerminalNode IDENT(int i) {
+			return getToken(MincamlParser.IDENT, i);
 		}
 		public Formal_argsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1146,31 +1142,24 @@ public class MincamlParser extends Parser {
 	public final Formal_argsContext formal_args() throws RecognitionException {
 		Formal_argsContext _localctx = new Formal_argsContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_formal_args);
+		int _la;
 		try {
-			setState(125);
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(120); 
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
-			case 1:
-				enterOuterAlt(_localctx, 1);
+			_la = _input.LA(1);
+			do {
 				{
-				}
-				break;
-			case 2:
-				enterOuterAlt(_localctx, 2);
 				{
-				setState(122);
-				match(IDENT);
-				setState(123);
-				formal_args();
-				}
-				break;
-			case 3:
-				enterOuterAlt(_localctx, 3);
-				{
-				setState(124);
+				setState(119);
 				match(IDENT);
 				}
-				break;
+				}
+				setState(122); 
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			} while ( _la==IDENT );
 			}
 		}
 		catch (RecognitionException re) {
@@ -1217,7 +1206,7 @@ public class MincamlParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(128); 
+			setState(125); 
 			_errHandler.sync(this);
 			_alt = 1;
 			do {
@@ -1225,7 +1214,7 @@ public class MincamlParser extends Parser {
 				case 1:
 					{
 					{
-					setState(127);
+					setState(124);
 					simple_exp(0);
 					}
 					}
@@ -1233,7 +1222,7 @@ public class MincamlParser extends Parser {
 				default:
 					throw new NoViableAltException(this);
 				}
-				setState(130); 
+				setState(127); 
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
 			} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
@@ -1251,11 +1240,11 @@ public class MincamlParser extends Parser {
 	}
 
 	public static class ElemsContext extends ParserRuleContext {
-		public ExpContext exp() {
-			return getRuleContext(ExpContext.class,0);
+		public List<ExpContext> exp() {
+			return getRuleContexts(ExpContext.class);
 		}
-		public ElemsContext elems() {
-			return getRuleContext(ElemsContext.class,0);
+		public ExpContext exp(int i) {
+			return getRuleContext(ExpContext.class,i);
 		}
 		public ElemsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1280,30 +1269,31 @@ public class MincamlParser extends Parser {
 		ElemsContext _localctx = new ElemsContext(_ctx, getState());
 		enterRule(_localctx, 10, RULE_elems);
 		try {
-			setState(138);
+			int _alt;
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(131); 
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
-			case 1:
-				enterOuterAlt(_localctx, 1);
-				{
+			_alt = 1;
+			do {
+				switch (_alt) {
+				case 1:
+					{
+					{
+					setState(129);
+					match(T__18);
+					setState(130);
+					exp(0);
+					}
+					}
+					break;
+				default:
+					throw new NoViableAltException(this);
 				}
-				break;
-			case 2:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(133);
-				match(T__16);
-				setState(134);
-				exp(0);
-				setState(135);
-				elems();
-				}
-				break;
-			case 3:
-				enterOuterAlt(_localctx, 3);
-				{
-				}
-				break;
+				setState(133); 
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,8,_ctx);
+			} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
 			}
 		}
 		catch (RecognitionException re) {
@@ -1321,9 +1311,6 @@ public class MincamlParser extends Parser {
 		public List<TerminalNode> IDENT() { return getTokens(MincamlParser.IDENT); }
 		public TerminalNode IDENT(int i) {
 			return getToken(MincamlParser.IDENT, i);
-		}
-		public PatContext pat() {
-			return getRuleContext(PatContext.class,0);
 		}
 		public PatContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1345,63 +1332,28 @@ public class MincamlParser extends Parser {
 	}
 
 	public final PatContext pat() throws RecognitionException {
-		return pat(0);
-	}
-
-	private PatContext pat(int _p) throws RecognitionException {
-		ParserRuleContext _parentctx = _ctx;
-		int _parentState = getState();
-		PatContext _localctx = new PatContext(_ctx, _parentState);
-		PatContext _prevctx = _localctx;
-		int _startState = 12;
-		enterRecursionRule(_localctx, 12, RULE_pat, _p);
+		PatContext _localctx = new PatContext(_ctx, getState());
+		enterRule(_localctx, 12, RULE_pat);
+		int _la;
 		try {
-			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(144);
+			setState(137); 
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
-			case 1:
+			_la = _input.LA(1);
+			do {
 				{
-				}
-				break;
-			case 2:
 				{
-				setState(141);
-				match(IDENT);
-				setState(142);
-				match(T__16);
-				setState(143);
+				setState(135);
+				match(T__18);
+				setState(136);
 				match(IDENT);
 				}
-				break;
-			}
-			_ctx.stop = _input.LT(-1);
-			setState(151);
-			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,10,_ctx);
-			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1 ) {
-					if ( _parseListeners!=null ) triggerExitRuleEvent();
-					_prevctx = _localctx;
-					{
-					{
-					_localctx = new PatContext(_parentctx, _parentState);
-					pushNewRecursionContext(_localctx, _startState, RULE_pat);
-					setState(146);
-					if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-					setState(147);
-					match(T__16);
-					setState(148);
-					match(IDENT);
-					}
-					} 
 				}
-				setState(153);
+				setState(139); 
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,10,_ctx);
-			}
+				_la = _input.LA(1);
+			} while ( _la==T__18 );
 			}
 		}
 		catch (RecognitionException re) {
@@ -1410,7 +1362,7 @@ public class MincamlParser extends Parser {
 			_errHandler.recover(this, re);
 		}
 		finally {
-			unrollRecursionContexts(_parentctx);
+			exitRule();
 		}
 		return _localctx;
 	}
@@ -1421,8 +1373,6 @@ public class MincamlParser extends Parser {
 			return simple_exp_sempred((Simple_expContext)_localctx, predIndex);
 		case 1:
 			return exp_sempred((ExpContext)_localctx, predIndex);
-		case 6:
-			return pat_sempred((PatContext)_localctx, predIndex);
 		}
 		return true;
 	}
@@ -1450,60 +1400,47 @@ public class MincamlParser extends Parser {
 		}
 		return true;
 	}
-	private boolean pat_sempred(PatContext _localctx, int predIndex) {
-		switch (predIndex) {
-		case 7:
-			return precpred(_ctx, 2);
-		}
-		return true;
-	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\"\u009d\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\"\u0090\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\3\2\3\2\3\2\3\2\3\2\3\2"+
 		"\3\2\3\2\3\2\3\2\3\2\5\2\34\n\2\3\2\3\2\3\2\3\2\3\2\3\2\7\2$\n\2\f\2\16"+
 		"\2\'\13\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
 		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
-		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3"+
-		"Z\n\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
-		"\3\3\3\3\3\3\7\3o\n\3\f\3\16\3r\13\3\3\4\3\4\3\4\3\4\3\4\3\4\5\4z\n\4"+
-		"\3\5\3\5\3\5\3\5\5\5\u0080\n\5\3\6\6\6\u0083\n\6\r\6\16\6\u0084\3\7\3"+
-		"\7\3\7\3\7\3\7\3\7\5\7\u008d\n\7\3\b\3\b\3\b\3\b\5\b\u0093\n\b\3\b\3\b"+
-		"\3\b\7\b\u0098\n\b\f\b\16\b\u009b\13\b\3\b\2\5\2\4\16\t\2\4\6\b\n\f\16"+
-		"\2\5\3\2\b\t\4\2\7\7\n\f\3\2\r\22\2\u00b2\2\33\3\2\2\2\4Y\3\2\2\2\6y\3"+
-		"\2\2\2\b\177\3\2\2\2\n\u0082\3\2\2\2\f\u008c\3\2\2\2\16\u0092\3\2\2\2"+
-		"\20\21\b\2\1\2\21\22\7\3\2\2\22\23\5\4\3\2\23\24\7\4\2\2\24\34\3\2\2\2"+
-		"\25\26\7\3\2\2\26\34\7\4\2\2\27\34\7\35\2\2\30\34\7\36\2\2\31\34\7\37"+
-		"\2\2\32\34\7!\2\2\33\20\3\2\2\2\33\25\3\2\2\2\33\27\3\2\2\2\33\30\3\2"+
-		"\2\2\33\31\3\2\2\2\33\32\3\2\2\2\34%\3\2\2\2\35\36\f\3\2\2\36\37\7\5\2"+
-		"\2\37 \7\3\2\2 !\5\4\3\2!\"\7\4\2\2\"$\3\2\2\2#\35\3\2\2\2$\'\3\2\2\2"+
-		"%#\3\2\2\2%&\3\2\2\2&\3\3\2\2\2\'%\3\2\2\2()\b\3\1\2)Z\5\2\2\2*+\7\6\2"+
-		"\2+Z\5\4\3\21,-\7\7\2\2-Z\5\4\3\20./\7\27\2\2/\60\5\4\3\2\60\61\7\30\2"+
-		"\2\61\62\5\4\3\2\62\63\7\31\2\2\63\64\5\4\3\f\64Z\3\2\2\2\65\66\7\f\2"+
-		"\2\66Z\5\4\3\13\678\7\32\2\289\7!\2\29:\7\r\2\2:;\5\4\3\2;<\7\34\2\2<"+
-		"=\5\4\3\t=Z\3\2\2\2>?\7\32\2\2?@\7\33\2\2@A\5\6\4\2AB\7\34\2\2BC\5\4\3"+
-		"\bCZ\3\2\2\2DE\7\32\2\2EF\7\3\2\2FG\5\16\b\2GH\7\4\2\2HI\7\r\2\2IJ\5\4"+
-		"\3\2JK\7\34\2\2KL\5\4\3\6LZ\3\2\2\2MN\5\2\2\2NO\7\5\2\2OP\7\3\2\2PQ\5"+
-		"\4\3\2QR\7\4\2\2RS\7\24\2\2ST\5\4\3\5TZ\3\2\2\2UV\7\26\2\2VW\5\2\2\2W"+
-		"X\5\2\2\2XZ\3\2\2\2Y(\3\2\2\2Y*\3\2\2\2Y,\3\2\2\2Y.\3\2\2\2Y\65\3\2\2"+
-		"\2Y\67\3\2\2\2Y>\3\2\2\2YD\3\2\2\2YM\3\2\2\2YU\3\2\2\2Zp\3\2\2\2[\\\f"+
-		"\17\2\2\\]\t\2\2\2]o\5\4\3\20^_\f\16\2\2_`\t\3\2\2`o\5\4\3\17ab\f\r\2"+
-		"\2bc\t\4\2\2co\5\4\3\16de\f\4\2\2ef\7\25\2\2fo\5\4\3\5gh\f\n\2\2ho\5\n"+
-		"\6\2ij\f\7\2\2jk\7\23\2\2kl\5\4\3\2lm\5\f\7\2mo\3\2\2\2n[\3\2\2\2n^\3"+
-		"\2\2\2na\3\2\2\2nd\3\2\2\2ng\3\2\2\2ni\3\2\2\2or\3\2\2\2pn\3\2\2\2pq\3"+
-		"\2\2\2q\5\3\2\2\2rp\3\2\2\2sz\3\2\2\2tu\7!\2\2uv\5\b\5\2vw\7\r\2\2wx\5"+
-		"\4\3\2xz\3\2\2\2ys\3\2\2\2yt\3\2\2\2z\7\3\2\2\2{\u0080\3\2\2\2|}\7!\2"+
-		"\2}\u0080\5\b\5\2~\u0080\7!\2\2\177{\3\2\2\2\177|\3\2\2\2\177~\3\2\2\2"+
-		"\u0080\t\3\2\2\2\u0081\u0083\5\2\2\2\u0082\u0081\3\2\2\2\u0083\u0084\3"+
-		"\2\2\2\u0084\u0082\3\2\2\2\u0084\u0085\3\2\2\2\u0085\13\3\2\2\2\u0086"+
-		"\u008d\3\2\2\2\u0087\u0088\7\23\2\2\u0088\u0089\5\4\3\2\u0089\u008a\5"+
-		"\f\7\2\u008a\u008d\3\2\2\2\u008b\u008d\3\2\2\2\u008c\u0086\3\2\2\2\u008c"+
-		"\u0087\3\2\2\2\u008c\u008b\3\2\2\2\u008d\r\3\2\2\2\u008e\u0093\b\b\1\2"+
-		"\u008f\u0090\7!\2\2\u0090\u0091\7\23\2\2\u0091\u0093\7!\2\2\u0092\u008e"+
-		"\3\2\2\2\u0092\u008f\3\2\2\2\u0093\u0099\3\2\2\2\u0094\u0095\f\4\2\2\u0095"+
-		"\u0096\7\23\2\2\u0096\u0098\7!\2\2\u0097\u0094\3\2\2\2\u0098\u009b\3\2"+
-		"\2\2\u0099\u0097\3\2\2\2\u0099\u009a\3\2\2\2\u009a\17\3\2\2\2\u009b\u0099"+
-		"\3\2\2\2\r\33%Ynpy\177\u0084\u008c\u0092\u0099";
+		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
+		"\5\3[\n\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
+		"\3\3\7\3m\n\3\f\3\16\3p\13\3\3\4\3\4\3\4\3\4\3\4\3\4\5\4x\n\4\3\5\6\5"+
+		"{\n\5\r\5\16\5|\3\6\6\6\u0080\n\6\r\6\16\6\u0081\3\7\3\7\6\7\u0086\n\7"+
+		"\r\7\16\7\u0087\3\b\3\b\6\b\u008c\n\b\r\b\16\b\u008d\3\b\2\4\2\4\t\2\4"+
+		"\6\b\n\f\16\2\5\3\2\b\t\4\2\7\7\n\f\3\2\r\22\2\u00a2\2\33\3\2\2\2\4Z\3"+
+		"\2\2\2\6w\3\2\2\2\bz\3\2\2\2\n\177\3\2\2\2\f\u0085\3\2\2\2\16\u008b\3"+
+		"\2\2\2\20\21\b\2\1\2\21\22\7\3\2\2\22\23\5\4\3\2\23\24\7\4\2\2\24\34\3"+
+		"\2\2\2\25\26\7\3\2\2\26\34\7\4\2\2\27\34\7\35\2\2\30\34\7\36\2\2\31\34"+
+		"\7\37\2\2\32\34\7!\2\2\33\20\3\2\2\2\33\25\3\2\2\2\33\27\3\2\2\2\33\30"+
+		"\3\2\2\2\33\31\3\2\2\2\33\32\3\2\2\2\34%\3\2\2\2\35\36\f\3\2\2\36\37\7"+
+		"\5\2\2\37 \7\3\2\2 !\5\4\3\2!\"\7\4\2\2\"$\3\2\2\2#\35\3\2\2\2$\'\3\2"+
+		"\2\2%#\3\2\2\2%&\3\2\2\2&\3\3\2\2\2\'%\3\2\2\2()\b\3\1\2)[\5\2\2\2*+\7"+
+		"\6\2\2+[\5\4\3\21,-\7\7\2\2-[\5\4\3\20./\7\27\2\2/\60\5\4\3\2\60\61\7"+
+		"\30\2\2\61\62\5\4\3\2\62\63\7\31\2\2\63\64\5\4\3\f\64[\3\2\2\2\65\66\7"+
+		"\f\2\2\66[\5\4\3\13\678\7\32\2\289\7!\2\29:\7\r\2\2:;\5\4\3\2;<\7\34\2"+
+		"\2<=\5\4\3\t=[\3\2\2\2>?\7\32\2\2?@\7\33\2\2@A\5\6\4\2AB\7\34\2\2BC\5"+
+		"\4\3\bC[\3\2\2\2DE\7\32\2\2EF\7\3\2\2FG\7!\2\2GH\5\16\b\2HI\7\4\2\2IJ"+
+		"\7\r\2\2JK\5\4\3\2KL\7\34\2\2LM\5\4\3\6M[\3\2\2\2NO\5\2\2\2OP\7\5\2\2"+
+		"PQ\7\3\2\2QR\5\4\3\2RS\7\4\2\2ST\7\23\2\2TU\5\4\3\5U[\3\2\2\2VW\7\26\2"+
+		"\2WX\5\2\2\2XY\5\2\2\2Y[\3\2\2\2Z(\3\2\2\2Z*\3\2\2\2Z,\3\2\2\2Z.\3\2\2"+
+		"\2Z\65\3\2\2\2Z\67\3\2\2\2Z>\3\2\2\2ZD\3\2\2\2ZN\3\2\2\2ZV\3\2\2\2[n\3"+
+		"\2\2\2\\]\f\17\2\2]^\t\2\2\2^m\5\4\3\20_`\f\16\2\2`a\t\3\2\2am\5\4\3\17"+
+		"bc\f\r\2\2cd\t\4\2\2dm\5\4\3\16ef\f\4\2\2fg\7\24\2\2gm\5\4\3\5hi\f\n\2"+
+		"\2im\5\n\6\2jk\f\7\2\2km\5\f\7\2l\\\3\2\2\2l_\3\2\2\2lb\3\2\2\2le\3\2"+
+		"\2\2lh\3\2\2\2lj\3\2\2\2mp\3\2\2\2nl\3\2\2\2no\3\2\2\2o\5\3\2\2\2pn\3"+
+		"\2\2\2qx\3\2\2\2rs\7!\2\2st\5\b\5\2tu\7\r\2\2uv\5\4\3\2vx\3\2\2\2wq\3"+
+		"\2\2\2wr\3\2\2\2x\7\3\2\2\2y{\7!\2\2zy\3\2\2\2{|\3\2\2\2|z\3\2\2\2|}\3"+
+		"\2\2\2}\t\3\2\2\2~\u0080\5\2\2\2\177~\3\2\2\2\u0080\u0081\3\2\2\2\u0081"+
+		"\177\3\2\2\2\u0081\u0082\3\2\2\2\u0082\13\3\2\2\2\u0083\u0084\7\25\2\2"+
+		"\u0084\u0086\5\4\3\2\u0085\u0083\3\2\2\2\u0086\u0087\3\2\2\2\u0087\u0085"+
+		"\3\2\2\2\u0087\u0088\3\2\2\2\u0088\r\3\2\2\2\u0089\u008a\7\25\2\2\u008a"+
+		"\u008c\7!\2\2\u008b\u0089\3\2\2\2\u008c\u008d\3\2\2\2\u008d\u008b\3\2"+
+		"\2\2\u008d\u008e\3\2\2\2\u008e\17\3\2\2\2\f\33%Zlnw|\u0081\u0087\u008d";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

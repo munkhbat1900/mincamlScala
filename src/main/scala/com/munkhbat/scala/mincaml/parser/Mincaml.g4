@@ -21,8 +21,8 @@ exp:
     | exp actual_args                                                         #applyExp
     | LET IDENT '=' exp IN exp                                                #letExp
     | LET REC fundef IN exp                                                   #letRecExp
-    | exp ',' exp elems                                                       #tupleExp
-    | LET '(' pat ')' '=' exp IN exp                                          #letTupleExp
+    | exp elems                                                               #tupleExp
+    | LET '(' IDENT pat ')' '=' exp IN exp                                    #letTupleExp
     | simple_exp '.' '(' exp ')' '<-' exp                                     #putExp
     | exp ';' exp                                                             #seqExp
     | ARRAY_CREATE simple_exp simple_exp                                      #arrayCreateExp
@@ -32,22 +32,16 @@ fundef:
     | IDENT formal_args '=' exp
 ;
 
-formal_args:
-    | IDENT formal_args
-    | IDENT
+formal_args: IDENT+
 ;
 
 actual_args: simple_exp+
     ;
 
-elems:
-    | ',' exp elems
-    |
+elems: (',' exp)+
 ;
 
-pat:
-    | pat ',' IDENT
-    | IDENT ',' IDENT
+pat: (',' IDENT)+
 ;
 
 ARRAY_CREATE: 'Array.make';
