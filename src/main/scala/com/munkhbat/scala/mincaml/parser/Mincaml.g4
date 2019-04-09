@@ -16,9 +16,9 @@ exp:
     | left = exp op = ('*.' | '/.') right = exp                               #multiplyDivideExp
     | left = exp op = ('+' | '-' | '+.' | '-.') right = exp                   #plusMinusExp
     | left = exp op = ('=' | '<>' | '<' | '>' | '<=' | '>=') right = exp      #logicalExp
+    | exp actual_args                                                         #applyExp
     | IF condition = exp THEN thenExp = exp ELSE elseExp = exp                #ifExp
     | '-.' exp                                                                #fNegExp
-    | exp actual_args                                                         #applyExp
     | LET IDENT '=' exp IN exp                                                #letExp
     | LET REC fundef IN exp                                                   #letRecExp
     | exp elems                                                               #tupleExp
