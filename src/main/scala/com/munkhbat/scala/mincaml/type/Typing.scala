@@ -15,13 +15,72 @@ object Typing {
   // type environment for external variables.
   var extenv = Map[Id.T, Type.T]()
 
+  // for pretty printing (and type normalization)
+  //for example : print_int -> Var(Some(Fun(List(Var(Some(Int()))),Var(Some(Unit()))))) will be converted to
+  //print_int -> Var(Some(Fun(List(Int()),Unit())))
+  def derefTyp(t: Type.T): Type.T = {
+    t match {
+      case Type.Fun(args, ret) => Type.Fun(args.map(derefTyp), derefTyp(ret))
+      case Type.Tuple(elems) => Type.Tuple(elems.map(derefTyp))
+      case Type.Array(r) => Type.Array(derefTyp(r))
+      case r@Type.Var(None) => {
+        println("uninstantiated type variable detected; assuming int@.")
+        r.a = Some(Type.Int())
+        Type.Int()
+      }
+      case r@Type.Var(Some(r1)) => {
+        val r2 = derefTyp(r1)
+        r.a = Some(r2)
+        r2
+      }
+      case r => r
+    }
+  }
+
+  def derefIdTyp(t: (Id.T, Type.T)): (Id.T, Type.T) = {
+    (t._1, derefTyp(t._2))
+  }
+
+  def derefTerm(e: Ast.Exp): Ast.Exp = {
+    e match {
+      case Ast.MNot(e)=> Ast.MNot(derefTerm(e))
+      case Ast.MNeg(e) => Ast.MNeg(derefTerm(e))
+      case Ast.MAdd(e1, e2) => Ast.MAdd(derefTerm(e1), derefTerm(e2))
+      case Ast.MSub(e1, e2) => Ast.MSub(derefTerm(e1), derefTerm(e2))
+      case Ast.MEq(e1, e2) => Ast.MEq(derefTerm(e1), derefTerm(e2))
+      case Ast.MLE(e1, e2) => Ast.MLE(derefTerm(e1), derefTerm(e2))
+      case Ast.MFNeg(e) => Ast.MFNeg(derefTerm(e))
+      case Ast.MFAdd(e1, e2) => Ast.MFAdd(derefTerm(e1), derefTerm(e2))
+      case Ast.MFSub(e1, e2) => Ast.MFSub(derefTerm(e1), derefTerm(e2))
+      case Ast.MFMul(e1, e2) => Ast.MFMul(derefTerm(e1), derefTerm(e2))
+      case Ast.MFDiv(e1, e2) => Ast.MFDiv(derefTerm(e1), derefTerm(e2))
+      case Ast.MIf(e1, e2, e3) => Ast.MIf(derefTerm(e1), derefTerm(e2), derefTerm(e3))
+      case Ast.MLet(xt, e1, e2) => Ast.MLet(derefIdTyp(xt), derefTerm(e1), derefTerm(e2))
+      case Ast.MLetRec(Ast.MFunDef(name, args, body), e2) => {
+        val name1 = derefIdTyp(name)
+        val args1 = args.map(derefIdTyp)
+        val body1 = derefTerm(body)
+        val e22 = derefTerm(e2)
+        Ast.MLetRec(Ast.MFunDef(name1, args1, body1), e22)
+      }
+      case Ast.MApp(e, es) => Ast.MApp(derefTerm(e), es.map(derefTerm))
+      case Ast.MTuple(es) => Ast.MTuple(es.map(derefTerm))
+      case Ast.MLetTuple(xts, e1, e2) => Ast.MLetTuple(xts.map(derefIdTyp), derefTerm(e1), derefTerm(e2))
+      case Ast.MArray(e1, e2) => Ast.MArray(derefTerm(e1), derefTerm(e2))
+      case Ast.MGet(e1, e2) => Ast.MGet(derefTerm(e1), derefTerm(e2))
+      case Ast.MPut(e1, e2, e3) => Ast.MPut(derefTerm(e1), derefTerm(e2), derefTerm(e3))
+      case e => e
+
+    }
+  }
+
   def occur(r1: Option[Type.T], t2: Type.T): Boolean = {
     t2 match {
       case Type.Fun(args, ret) => args.exists(occur(r1, _)) || occur(r1, ret)
       case Type.Tuple(elems) => elems.exists(occur(r1, _))
       case Type.Array(t) => occur(r1, t)
-      case Type.Var(r2) if (r1 == r2)=> true
       case Type.Var(None) => false
+      case Type.Var(r2) if (r1 == r2)=> true
       case Type.Var(Some(r2)) => occur(r1, r2)
       case _ => false
     }
@@ -179,5 +238,8 @@ object Typing {
 
   def infer(e: Ast.Exp) = {
     unify(Type.Unit(), g(Map.empty, e))
+    extenv.map(derefIdTyp)
+    println("external type envirnment = " + extenv)
+    derefTerm(e)
   }
 }
