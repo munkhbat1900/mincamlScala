@@ -69,7 +69,7 @@ object kNormal {
       case Ast.MEq(e1, e2) => g(env, Ast.MIf(Ast.MEq(e1, e2), Ast.MBool(true), Ast.MBool(false)))
       case Ast.MLE(e1, e2) => g(env, Ast.MIf(Ast.MLE(e1, e2), Ast.MBool(true), Ast.MBool(false)))
       case Ast.MIf(Ast.MNot(e1), e2, e3) => g(env, Ast.MIf(e1, e3, e2))
-      case Ast.MIf(Ast.MEq(e1, e2), e3, e4) =>
+//      case Ast.MIf(Ast.MEq(e1, e2), e3, e4) =>
     }
   }
 }
